@@ -49,22 +49,24 @@ document.addEventListener("DOMContentLoaded", () => {
 // 1. SCREEN NAVIGATION & ROUTING
 // ==========================================
 function navigateToScreen(screenName) {
-  // If user tries to open exam or warmup without a name, prompt gently
-  if ((screenName === "exam" || screenName === "certificate") && !state.student.name) {
+  // If user tries to open exam, warmup, result, or certificate without a name, prompt gently
+  if ((screenName === "exam" || screenName === "warmup" || screenName === "result" || screenName === "certificate") && !state.student.name) {
     const entered = prompt("Please enter the student's full name first:");
     if (entered && entered.trim()) {
       state.student.name = entered.trim();
       syncProfileUI();
       saveStateToStorage();
-    } else if (screenName === "certificate") {
-      alert("Please fill in your name and complete the main test first.");
-      screenName = "dashboard";
+    } else {
+      if (screenName !== "theory") {
+        alert("Please enter your name first on the Dashboard.");
+        screenName = "dashboard";
+      }
     }
   }
 
-  // If user tries to view certificate without finishing exam
-  if (screenName === "certificate" && !state.examSubmitted) {
-    alert("You have not completed the 20 Main Test Questions yet. Please finish the test first to generate your official certificate!");
+  // STRICT LOCK: Results and Certificate are locked until 20 questions are completed
+  if ((screenName === "result" || screenName === "certificate") && !state.examSubmitted) {
+    alert("🔒 ACCESS LOCKED:\nYou must complete and submit the 20 Main Test Questions before accessing the Results, Answer Explanations, or Certificate!");
     screenName = "exam";
   }
 
@@ -103,9 +105,13 @@ function navigateToScreen(screenName) {
     renderExamQuestion(state.currentQuestionIndex);
     renderQuestionGrid();
   } else if (screenName === "result") {
-    renderScoreResults();
+    if (state.examSubmitted) {
+      renderScoreResults();
+    }
   } else if (screenName === "certificate") {
-    generateCertificateCanvas();
+    if (state.examSubmitted) {
+      generateCertificateCanvas();
+    }
   }
 
   updateCompletionBadges();
@@ -115,6 +121,9 @@ function navigateToScreen(screenName) {
 function updateCompletionBadges() {
   const warmupBadge = document.getElementById("warmup-done-badge");
   const examBadge = document.getElementById("exam-done-badge");
+  const resultLockBadge = document.getElementById("result-lock-badge");
+  const certLockBadge = document.getElementById("cert-lock-badge");
+  const card4LockBadge = document.getElementById("card4-lock-badge");
 
   if (warmupBadge) {
     if (state.warmUpSubmitted) warmupBadge.classList.remove("hidden");
@@ -124,6 +133,34 @@ function updateCompletionBadges() {
   if (examBadge) {
     if (state.examSubmitted) examBadge.classList.remove("hidden");
     else examBadge.classList.add("hidden");
+  }
+
+  if (resultLockBadge) {
+    if (state.examSubmitted) {
+      resultLockBadge.textContent = "✓ Available";
+      resultLockBadge.className = "text-[10px] bg-emerald-500 text-white px-1.5 py-0.2 rounded-full";
+    } else {
+      resultLockBadge.textContent = "🔒 Locked";
+      resultLockBadge.className = "text-[10px] bg-slate-200 text-slate-600 px-1.5 py-0.2 rounded-full";
+    }
+  }
+
+  if (certLockBadge) {
+    if (state.examSubmitted) {
+      certLockBadge.textContent = "✓ Available";
+      certLockBadge.className = "text-[10px] bg-amber-500 text-white px-1.5 py-0.2 rounded-full";
+    } else {
+      certLockBadge.textContent = "🔒 Locked";
+      certLockBadge.className = "text-[10px] bg-slate-200 text-slate-600 px-1.5 py-0.2 rounded-full";
+    }
+  }
+
+  if (card4LockBadge) {
+    if (state.examSubmitted) {
+      card4LockBadge.innerHTML = `<span class="text-emerald-700 bg-emerald-50 border border-emerald-200 text-[10px] font-bold px-2 py-0.5 rounded">✓ Available</span>`;
+    } else {
+      card4LockBadge.innerHTML = `<span class="text-amber-800 bg-amber-50 border border-amber-200 text-[10px] font-bold px-2 py-0.5 rounded">🔒 Locked until test submitted</span>`;
+    }
   }
 }
 
@@ -234,6 +271,11 @@ function loadSavedState() {
       if (parsed.examScore !== undefined) state.examScore = parsed.examScore;
       if (parsed.skillsAnalysis) state.skillsAnalysis = parsed.skillsAnalysis;
       if (parsed.certificateId) state.certificateId = parsed.certificateId;
+      
+      // Safety guard: do not allow result or certificate screen on startup if exam is not submitted
+      if (!state.examSubmitted && (state.currentScreen === "result" || state.currentScreen === "certificate")) {
+        state.currentScreen = "dashboard";
+      }
     }
   } catch (e) {
     console.warn("LocalStorage load error", e);
