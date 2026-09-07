@@ -51,20 +51,20 @@ document.addEventListener("DOMContentLoaded", () => {
 function navigateToScreen(screenName) {
   // If user tries to open exam or warmup without a name, prompt gently
   if ((screenName === "exam" || screenName === "certificate") && !state.student.name) {
-    const entered = prompt("Silakan masukkan Nama Lengkap Siswa terlebih dahulu:");
+    const entered = prompt("Please enter the student's full name first:");
     if (entered && entered.trim()) {
       state.student.name = entered.trim();
       syncProfileUI();
       saveStateToStorage();
     } else if (screenName === "certificate") {
-      alert("Harap isi nama siswa dan selesaikan ujian terlebih dahulu.");
+      alert("Please fill in your name and complete the main test first.");
       screenName = "dashboard";
     }
   }
 
   // If user tries to view certificate without finishing exam
   if (screenName === "certificate" && !state.examSubmitted) {
-    alert("Anda belum menyelesaikan Ujian Utama 20 Soal. Selesaikan ujian terlebih dahulu untuk mendapatkan sertifikat resmi!");
+    alert("You have not completed the 20 Main Test Questions yet. Please finish the test first to generate your official certificate!");
     screenName = "exam";
   }
 
@@ -154,7 +154,7 @@ function saveProfileFromDashboard() {
   const classInput = document.getElementById("dash-student-class");
 
   if (!nameInput.value.trim()) {
-    alert("Silakan masukkan Nama Lengkap Siswa.");
+    alert("Please enter the student's full name.");
     nameInput.focus();
     return;
   }
@@ -163,7 +163,7 @@ function saveProfileFromDashboard() {
   state.student.classGrade = classInput.value;
   syncProfileUI();
   saveStateToStorage();
-  alert("Data siswa berhasil disimpan! Anda dapat memilih modul apa pun untuk mulai.");
+  alert("Profile saved successfully! You may now select any learning or practice module.");
 }
 
 function editStudentProfileModal() {
@@ -190,7 +190,7 @@ function saveStudentProfileModal() {
   const numInput = document.getElementById("modal-student-num");
 
   if (!nameInput.value.trim()) {
-    alert("Silakan masukkan Nama Lengkap Siswa.");
+    alert("Please enter the student's full name.");
     nameInput.focus();
     return;
   }
@@ -256,7 +256,7 @@ function renderTheoryContent() {
         <span class="p-3 bg-blue-100 text-blue-700 rounded-2xl text-2xl font-bold">📖</span>
         <div>
           <h3 class="text-xl sm:text-2xl font-bold text-slate-900">1. Generic Structure of Descriptive Text</h3>
-          <p class="text-slate-500 text-xs sm:text-sm">Struktur generik teks deskriptif tentang Great Athletes</p>
+          <p class="text-slate-500 text-xs sm:text-sm">Standard structural stages of descriptive texts about Great Athletes</p>
         </div>
       </div>
 
@@ -266,7 +266,7 @@ function renderTheoryContent() {
             <h4 class="text-base font-bold text-blue-900 mb-2">${gs.part}</h4>
             <p class="text-slate-700 text-xs sm:text-sm mb-3">${gs.description}</p>
             <div class="p-3 bg-white rounded-xl border border-blue-200/60 text-xs text-slate-600 italic">
-              <strong>Kutipan:</strong> "${gs.example}"
+              <strong>Example Excerpt:</strong> "${gs.example}"
             </div>
           </div>
         `).join("")}
@@ -274,7 +274,7 @@ function renderTheoryContent() {
 
       <div class="mt-6 p-4 rounded-2xl bg-slate-50 border border-slate-200">
         <h5 class="font-bold text-slate-800 text-xs sm:text-sm mb-2 flex items-center gap-2">
-          <span>✨</span> Ciri Kebahasaan (Language Features):
+          <span>✨</span> Key Language Features:
         </h5>
         <ul class="list-disc list-inside text-xs sm:text-sm text-slate-600 space-y-1">
           ${t.descriptiveText.languageFeatures.map(lf => `<li>${lf}</li>`).join("")}
@@ -288,7 +288,7 @@ function renderTheoryContent() {
         <span class="p-3 bg-emerald-100 text-emerald-700 rounded-2xl text-2xl font-bold">⚖️</span>
         <div>
           <h3 class="text-xl sm:text-2xl font-bold text-slate-900">2. Language Focus: Adjectives vs Adverbs</h3>
-          <p class="text-slate-500 text-xs sm:text-sm">Membedakan Kata Sifat (Adjective) dan Kata Keterangan (Adverb) pada Teks Atlet</p>
+          <p class="text-slate-500 text-xs sm:text-sm">Distinguishing Adjectives and Adverbs in Athlete Descriptions</p>
         </div>
       </div>
 
@@ -299,9 +299,9 @@ function renderTheoryContent() {
         <table class="w-full text-left text-xs sm:text-sm">
           <thead class="bg-slate-100 text-slate-700 font-bold">
             <tr>
-              <th class="p-4 border-b border-slate-200">Unsur</th>
-              <th class="p-4 border-b border-slate-200 bg-blue-50/70 text-blue-900">ADJECTIVE (Kata Sifat)</th>
-              <th class="p-4 border-b border-slate-200 bg-emerald-50/70 text-emerald-900">ADVERB (Kata Keterangan)</th>
+              <th class="p-4 border-b border-slate-200">Grammar Element</th>
+              <th class="p-4 border-b border-slate-200 bg-blue-50/70 text-blue-900">ADJECTIVE</th>
+              <th class="p-4 border-b border-slate-200 bg-emerald-50/70 text-emerald-900">ADVERB</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-200">
@@ -322,7 +322,7 @@ function renderTheoryContent() {
           <div class="p-5 rounded-2xl border ${idx === 0 ? 'border-blue-200 bg-blue-50/30' : 'border-emerald-200 bg-emerald-50/30'}">
             <h4 class="font-bold text-sm sm:text-base mb-4 ${idx === 0 ? 'text-blue-900' : 'text-emerald-900'} flex items-center justify-between">
               <span>${cat.type}</span>
-              <span class="text-xs px-2.5 py-1 rounded-full bg-white font-semibold shadow-2xs">${cat.items.length} Contoh</span>
+              <span class="text-xs px-2.5 py-1 rounded-full bg-white font-semibold shadow-2xs">${cat.items.length} Examples</span>
             </h4>
             <div class="space-y-3">
               ${cat.items.map(item => `
@@ -360,7 +360,7 @@ function renderGlossary() {
 }
 
 // ==========================================
-// 4. WARM-UP QUIZ (ANTHONY GINTING - 5 SOAL)
+// 4. WARM-UP QUIZ (ANTHONY GINTING - 5 QUESTIONS)
 // ==========================================
 function renderWarmUpQuiz() {
   const wu = APP_DATA.warmUp;
@@ -386,8 +386,8 @@ function renderWarmUpQuiz() {
     return `
       <div class="bg-white p-6 sm:p-7 rounded-3xl border border-slate-200 shadow-sm ${isSubmitted ? (selected === q.correctAnswer ? 'border-l-6 border-l-emerald-500' : 'border-l-6 border-l-rose-500') : ''}">
         <div class="flex items-center justify-between mb-3">
-          <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md">Soal Latihan ${idx + 1} of 5</span>
-          ${isSubmitted ? (selected === q.correctAnswer ? '<span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">✓ Benar (+20)</span>' : '<span class="text-xs font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md">✗ Kurang Tepat</span>') : ''}
+          <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md">Warm-Up Question ${idx + 1} of 5</span>
+          ${isSubmitted ? (selected === q.correctAnswer ? '<span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">✓ Correct (+20)</span>' : '<span class="text-xs font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md">✗ Incorrect</span>') : ''}
         </div>
         
         <h4 class="font-bold text-slate-900 text-sm sm:text-base mb-4">${q.question}</h4>
@@ -422,7 +422,7 @@ function renderWarmUpQuiz() {
 
         ${isSubmitted ? `
           <div class="mt-4 p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-700">
-            <strong class="text-slate-900">💡 Pembahasan:</strong> ${q.explanation}
+            <strong class="text-slate-900">💡 Explanation:</strong> ${q.explanation}
           </div>
         ` : ''}
       </div>
@@ -450,7 +450,7 @@ function selectWarmUpOption(qId, letter) {
 function submitWarmUpQuiz() {
   const answeredCount = Object.keys(state.warmUpAnswers).length;
   if (answeredCount < 5) {
-    if (!confirm(`Kamu baru menjawab ${answeredCount} dari 5 soal. Ingin memeriksa hasil sekarang?`)) {
+    if (!confirm(`You have answered ${answeredCount} out of 5 questions. Would you like to check your answers now?`)) {
       return;
     }
   }
@@ -474,11 +474,11 @@ function submitWarmUpQuiz() {
     feedbackBanner.innerHTML = `
       <div class="p-5 bg-emerald-100/80 border border-emerald-300 rounded-3xl text-emerald-950 flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 shadow-sm">
         <div>
-          <span class="font-extrabold text-base">🎉 Latihan Pemanasan Selesai! Skor: ${state.warmUpScore}/100</span>
-          <p class="text-xs text-emerald-800 mt-0.5">Kamu menjawab ${correct} dari 5 soal dengan benar. Pelajari pembahasan pada tiap butir soal di bawah!</p>
+          <span class="font-extrabold text-base">🎉 Warm-Up Completed! Score: ${state.warmUpScore}/100</span>
+          <p class="text-xs text-emerald-800 mt-0.5">You got ${correct} out of 5 questions correct. Review the detailed explanations below!</p>
         </div>
         <button onclick="navigateToScreen('exam')" class="px-5 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl font-bold text-xs shadow-sm transition-all whitespace-nowrap">
-          Masuk ke Ujian 20 Soal ➔
+          Proceed to 20 Main Questions ➔
         </button>
       </div>
     `;
@@ -486,7 +486,7 @@ function submitWarmUpQuiz() {
 }
 
 function resetWarmUpQuiz() {
-  if (confirm("Reset latihan 5 soal ini dan coba lagi dari awal?")) {
+  if (confirm("Reset this 5-question warm-up and try again from the start?")) {
     state.warmUpAnswers = {};
     state.warmUpSubmitted = false;
     state.warmUpScore = 0;
@@ -499,7 +499,7 @@ function resetWarmUpQuiz() {
 }
 
 // ==========================================
-// 5. MAIN PRACTICE EXAM (20 SOAL)
+// 5. MAIN PRACTICE EXAM (20 QUESTIONS)
 // ==========================================
 function renderExamQuestion(index) {
   state.currentQuestionIndex = index;
@@ -508,15 +508,15 @@ function renderExamQuestion(index) {
   if (!q) return;
 
   // Question Header info
-  document.getElementById("exam-q-number").textContent = `Soal No. ${q.number} of 20`;
+  document.getElementById("exam-q-number").textContent = `Question No. ${q.number} of 20`;
   document.getElementById("exam-q-skill").textContent = `Skill: ${q.skill}`;
   
   const typeBadge = document.getElementById("exam-q-type-badge");
   if (q.type === "mcma") {
-    typeBadge.textContent = "Pilihan Ganda Kompleks (Pilih 2 Jawaban)";
+    typeBadge.textContent = "Multiple Choice Multiple Answer (Choose 2 Correct)";
     typeBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-purple-100 text-purple-700 border border-purple-200";
   } else {
-    typeBadge.textContent = "Pilihan Ganda (1 Jawaban Benar)";
+    typeBadge.textContent = "Single Choice (1 Correct Answer)";
     typeBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-blue-100 text-blue-700 border border-blue-200";
   }
 
@@ -557,10 +557,10 @@ function renderExamQuestion(index) {
   const flagBtn = document.getElementById("flag-question-btn");
   if (state.examFlagged[q.number]) {
     flagBtn.classList.add("bg-amber-100", "text-amber-800", "border-amber-300");
-    flagBtn.innerHTML = `🚩 Ragu-ragu (Ditandai)`;
+    flagBtn.innerHTML = `🚩 Flagged (Marked)`;
   } else {
     flagBtn.classList.remove("bg-amber-100", "text-amber-800", "border-amber-300");
-    flagBtn.innerHTML = `🏳️ Tandai Ragu-ragu`;
+    flagBtn.innerHTML = `🏳️ Flag for Review`;
   }
 
   // Prev / Next Buttons
@@ -568,11 +568,11 @@ function renderExamQuestion(index) {
   
   const nextBtn = document.getElementById("next-q-btn");
   if (index === questions.length - 1) {
-    nextBtn.textContent = "Selesai & Kumpulkan ✨";
+    nextBtn.textContent = "Finish & Submit ✨";
     nextBtn.classList.remove("bg-blue-600", "hover:bg-blue-700");
     nextBtn.classList.add("bg-emerald-600", "hover:bg-emerald-700");
   } else {
-    nextBtn.textContent = "Berikutnya ➔";
+    nextBtn.textContent = "Next Question ➔";
     nextBtn.classList.remove("bg-emerald-600", "hover:bg-emerald-700");
     nextBtn.classList.add("bg-blue-600", "hover:bg-blue-700");
   }
@@ -660,7 +660,7 @@ function renderQuestionGrid() {
       answeredCount++;
     }
   });
-  document.getElementById("exam-progress-text").textContent = `${answeredCount} / 20 Terjawab`;
+  document.getElementById("exam-progress-text").textContent = `${answeredCount} / 20 Answered`;
   document.getElementById("exam-progress-bar").style.width = `${(answeredCount / 20) * 100}%`;
 }
 
@@ -672,7 +672,7 @@ function startExamTimer() {
     state.timeRemaining--;
     if (state.timeRemaining <= 0) {
       clearInterval(state.timerInterval);
-      alert("Waktu pengerjaan telah habis! Jawaban Anda akan otomatis dikumpulkan.");
+      alert("Time is up! Your answers will be automatically submitted.");
       submitMainExam();
     }
     updateTimerDisplay();
@@ -698,9 +698,9 @@ function confirmSubmitExam() {
   });
 
   const unAnswered = 20 - answeredCount;
-  let confirmMessage = `Apakah Anda yakin ingin mengumpulkan ujian?`;
+  let confirmMessage = `Are you sure you want to finish and submit your test?`;
   if (unAnswered > 0) {
-    confirmMessage = `Masih ada ${unAnswered} soal yang belum dijawab. Yakin ingin menyelesaikan sekarang?`;
+    confirmMessage = `You still have ${unAnswered} unanswered question(s). Are you sure you want to submit now?`;
   }
 
   if (confirm(confirmMessage)) {
@@ -711,7 +711,7 @@ function confirmSubmitExam() {
 
 function submitMainExam() {
   state.examSubmitted = true;
-  state.student.dateCompleted = new Date().toLocaleDateString('id-ID', {
+  state.student.dateCompleted = new Date().toLocaleDateString('en-GB', {
     day: 'numeric',
     month: 'long',
     year: 'numeric'
@@ -763,7 +763,7 @@ function submitMainExam() {
 }
 
 function retakeMainExam() {
-  if (confirm("Apakah Anda ingin mengulang ujian 20 butir soal dari awal?")) {
+  if (confirm("Would you like to restart the 20-question test from the beginning?")) {
     state.examAnswers = {};
     state.examFlagged = {};
     state.currentQuestionIndex = 0;
@@ -778,29 +778,29 @@ function retakeMainExam() {
 // ==========================================
 function renderScoreResults() {
   const score = state.examScore;
-  document.getElementById("res-student-name").textContent = state.student.name || "Nama Siswa";
-  document.getElementById("res-student-class").textContent = `${state.student.classGrade} ${state.student.studentNumber ? `(No: ${state.student.studentNumber})` : ''}`;
+  document.getElementById("res-student-name").textContent = state.student.name || "Student Name";
+  document.getElementById("res-student-class").textContent = `${state.student.classGrade} ${state.student.studentNumber ? `(Student No: ${state.student.studentNumber})` : ''}`;
   document.getElementById("res-final-score").textContent = score;
 
   let grade = "A";
-  let predicate = "Sangat Baik (Mastery / Excellent)";
+  let predicate = "Distinction (Mastery / Excellent)";
   let badgeClass = "bg-emerald-100 text-emerald-800 border-emerald-300";
   
   if (score >= 85) {
     grade = "A";
-    predicate = "Sangat Baik (Mastery / Excellent)";
+    predicate = "Distinction (Mastery / Excellent)";
     badgeClass = "bg-emerald-100 text-emerald-800 border-emerald-300";
   } else if (score >= 75) {
     grade = "B";
-    predicate = "Baik (Proficient / Good)";
+    predicate = "Proficient (Good)";
     badgeClass = "bg-blue-100 text-blue-800 border-blue-300";
   } else if (score >= 65) {
     grade = "C";
-    predicate = "Cukup (Satisfactory)";
+    predicate = "Satisfactory";
     badgeClass = "bg-amber-100 text-amber-800 border-amber-300";
   } else {
     grade = "D";
-    predicate = "Perlu Bimbingan (Needs Improvement)";
+    predicate = "Needs Improvement";
     badgeClass = "bg-rose-100 text-rose-800 border-rose-300";
   }
 
@@ -869,7 +869,7 @@ function renderFilteredReviewList() {
   });
 
   if (filtered.length === 0) {
-    reviewContainer.innerHTML = `<div class="p-8 text-center text-xs text-slate-500 bg-slate-50 rounded-2xl">Tidak ada soal pada kategori ini.</div>`;
+    reviewContainer.innerHTML = `<div class="p-8 text-center text-xs text-slate-500 bg-slate-50 rounded-2xl">No questions found in this category.</div>`;
     return;
   }
 
@@ -879,10 +879,10 @@ function renderFilteredReviewList() {
     let userAnsDisplay = "-";
 
     if (q.type === "single") {
-      userAnsDisplay = studentAns || "Tidak dijawab";
+      userAnsDisplay = studentAns || "No answer";
       isCorrect = studentAns === q.correctAnswer;
     } else {
-      userAnsDisplay = Array.isArray(studentAns) && studentAns.length > 0 ? studentAns.sort().join(", ") : "Tidak dijawab";
+      userAnsDisplay = Array.isArray(studentAns) && studentAns.length > 0 ? studentAns.sort().join(", ") : "No answer";
       isCorrect = Array.isArray(studentAns) && 
                   studentAns.length === q.correctAnswer.length && 
                   q.correctAnswer.every(val => studentAns.includes(val));
@@ -900,7 +900,7 @@ function renderFilteredReviewList() {
             <span class="text-xs font-semibold text-slate-500">[${q.textRef === 'text1' ? 'Thom Haye' : 'Usain Bolt'}] — ${q.skill}</span>
           </div>
           <span class="text-xs font-extrabold ${isCorrect ? 'text-emerald-700' : 'text-rose-700'}">
-            ${isCorrect ? '✓ Benar (+5)' : '✗ Salah (0)'}
+            ${isCorrect ? '✓ Correct (+5)' : '✗ Incorrect (0)'}
           </span>
         </div>
 
@@ -908,15 +908,15 @@ function renderFilteredReviewList() {
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs mb-3">
           <div class="p-3 rounded-xl ${isCorrect ? 'bg-emerald-100/70 text-emerald-950' : 'bg-rose-100/70 text-rose-950'} font-medium">
-            <strong>Jawaban Anda:</strong> ${userAnsDisplay}
+            <strong>Your Answer:</strong> ${userAnsDisplay}
           </div>
           <div class="p-3 rounded-xl bg-slate-100 text-slate-800 font-medium">
-            <strong>Kunci Jawaban:</strong> ${correctAnsDisplay}
+            <strong>Answer Key:</strong> ${correctAnsDisplay}
           </div>
         </div>
 
         <div class="p-4 bg-white rounded-2xl border border-slate-200 text-xs text-slate-700 leading-relaxed">
-          <strong class="text-slate-900">💡 Pembahasan:</strong> ${q.explanation}
+          <strong class="text-slate-900">💡 Explanation:</strong> ${q.explanation}
         </div>
       </div>
     `;
@@ -964,7 +964,7 @@ function generateCertificateCanvas() {
 
   ctx.fillStyle = "#475569";
   ctx.font = "600 20px 'Plus Jakarta Sans', sans-serif";
-  ctx.fillText("TERAKREDITASI 'A' — KABUPATEN BOGOR • TAHUN AJARAN 2026/2027", 960, 165);
+  ctx.fillText("ACCREDITED 'A' — BOGOR REGENCY • ACADEMIC YEAR 2026/2027", 960, 165);
 
   // Divider
   ctx.strokeStyle = "#cbd5e1";
@@ -986,7 +986,7 @@ function generateCertificateCanvas() {
   // Student Name
   ctx.fillStyle = "#1d4ed8";
   ctx.font = "bold 58px 'Playfair Display', serif";
-  ctx.fillText(state.student.name || "Nama Siswa", 960, 420);
+  ctx.fillText(state.student.name || "Student Name", 960, 420);
 
   // Underline for student name
   ctx.strokeStyle = "#93c5fd";
@@ -1033,7 +1033,7 @@ function generateCertificateCanvas() {
   ctx.fillText("Academic Curriculum Division", 1520, 890);
   ctx.font = "18px 'Plus Jakarta Sans', sans-serif";
   ctx.fillStyle = "#64748b";
-  ctx.fillText("Pusat Pembelajaran Digital", 1520, 920);
+  ctx.fillText("Digital Learning Center", 1520, 920);
 
   ctx.beginPath();
   ctx.moveTo(1370, 860);
@@ -1118,7 +1118,7 @@ function downloadCertificateImage() {
   const canvas = document.getElementById("certificate-canvas");
   if (!canvas) return;
   const link = document.createElement("a");
-  link.download = `Sertifikat_${state.student.name.replace(/\s+/g, '_')}_${state.student.classGrade}.png`;
+  link.download = `Certificate_${state.student.name.replace(/\s+/g, '_')}_${state.student.classGrade}.png`;
   link.href = canvas.toDataURL("image/png", 1.0);
   link.click();
 }
@@ -1128,14 +1128,14 @@ function printCertificate() {
 }
 
 function shareViaWhatsApp() {
-  const text = `*LAPORAN HASIL EVALUASI DESCRIPTIVE TEXT - GREAT ATHLETES*%0A` +
-               `*SMA PLUS PGRI CIBINONG - 2026/2027*%0A%0A` +
-               `👤 *Nama Siswa:* ${state.student.name}%0A` +
-               `🏫 *Kelas:* ${state.student.classGrade} ${state.student.studentNumber ? `(No: ${state.student.studentNumber})` : ''}%0A` +
-               `📊 *Nilai Akhir:* ${state.examScore} / 100%0A` +
-               `📅 *Tanggal:* ${state.student.dateCompleted}%0A` +
-               `🆔 *No. Sertifikat:* ${state.certificateId}%0A%0A` +
-               `_Sertifikat kelulusan digital telah berhasil diterbitkan._`;
+  const text = `*COMPETENCY EVALUATION REPORT: DESCRIPTIVE TEXT (GREAT ATHLETES)*%0A` +
+               `*SMA PLUS PGRI CIBINONG - ACADEMIC YEAR 2026/2027*%0A%0A` +
+               `👤 *Student Name:* ${state.student.name}%0A` +
+               `🏫 *Class:* ${state.student.classGrade} ${state.student.studentNumber ? `(Student No: ${state.student.studentNumber})` : ''}%0A` +
+               `📊 *Final Score:* ${state.examScore} / 100%0A` +
+               `📅 *Date Completed:* ${state.student.dateCompleted}%0A` +
+               `🆔 *Certificate ID:* ${state.certificateId}%0A%0A` +
+               `_Official digital Certificate of Achievement has been issued._`;
   window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
 }
 
@@ -1152,6 +1152,6 @@ function speakText(elementId) {
     utterance.rate = 0.9;
     window.speechSynthesis.speak(utterance);
   } else {
-    alert("Browser ini belum mendukung fitur Text-to-Speech.");
+    alert("This browser does not support Text-to-Speech.");
   }
 }
