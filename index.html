@@ -93,9 +93,11 @@
         </button>
         <button onclick="navigateToScreen('result')" id="nav-result" class="nav-pill px-3.5 py-2 rounded-xl whitespace-nowrap flex items-center gap-1.5">
           <span>📊</span> <span>Results & Review</span>
+          <span id="result-lock-badge" class="text-[10px] bg-slate-200 text-slate-600 px-1.5 py-0.2 rounded-full">🔒 Locked</span>
         </button>
         <button onclick="navigateToScreen('certificate')" id="nav-certificate" class="nav-pill px-3.5 py-2 rounded-xl whitespace-nowrap flex items-center gap-1.5">
           <span>🎓</span> <span>Official Certificate</span>
+          <span id="cert-lock-badge" class="text-[10px] bg-slate-200 text-slate-600 px-1.5 py-0.2 rounded-full">🔒 Locked</span>
         </button>
       </nav>
 
@@ -237,10 +239,15 @@
           </div>
 
           <!-- Card 4: Results & Certificate -->
-          <div onclick="navigateToScreen('result')" class="action-card glass-panel rounded-3xl p-6 border border-slate-200 flex flex-col justify-between group">
+          <div onclick="navigateToScreen('result')" class="action-card glass-panel rounded-3xl p-6 border border-slate-200 flex flex-col justify-between group relative overflow-hidden">
             <div>
-              <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl font-bold mb-4 group-hover:scale-110 transition-transform">
-                🎓
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl font-bold group-hover:scale-110 transition-transform">
+                  🎓
+                </div>
+                <div id="card4-lock-badge">
+                  <span class="text-amber-800 bg-amber-50 border border-amber-200 text-[10px] font-bold px-2 py-0.5 rounded">🔒 Locked until test submitted</span>
+                </div>
               </div>
               <span class="text-[11px] font-extrabold text-amber-600 uppercase tracking-wider bg-amber-50 px-2 py-0.5 rounded">Results & Certificate</span>
               <h4 class="text-lg font-bold text-slate-900 mt-2 mb-2">Official Digital Certificate</h4>
