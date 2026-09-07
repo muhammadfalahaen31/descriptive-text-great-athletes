@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Descriptive Text Practice: Great Athletes | SMA PLUS PGRI CIBINONG</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="antialiased min-h-screen flex flex-col selection:bg-blue-500 selection:text-white">
+
+  <!-- ========================================== -->
+  <!-- 1. TOP NAVBAR & NAVIGATION BAR             -->
+  <!-- ========================================== -->
+  <header class="glass-header sticky top-0 z-50 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-18 py-2">
+        
+        <!-- School & Subject Brand -->
+        <div class="flex items-center gap-3 cursor-pointer" onclick="navigateToScreen('dashboard')">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-800 to-indigo-600 text-white flex items-center justify-center font-bold text-xl shadow-md shrink-0">
+            🏅
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="font-extrabold text-sm sm:text-base text-slate-900 tracking-tight">SMA PLUS PGRI CIBINONG</h1>
+              <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 hidden sm:inline-block">X INT 2026/2027</span>
+            </div>
+            <p class="text-xs text-slate-500 font-medium">Chapter 1: Great Athletes • Descriptive Text Practice</p>
+          </div>
+        </div>
+
+        <!-- Student Profile Widget -->
+        <div class="flex items-center gap-3">
+          <div id="student-badge-card" class="hidden sm:flex items-center gap-2.5 px-3.5 py-1.5 rounded-xl bg-slate-100 border border-slate-200">
+            <div class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs font-bold">
+              👤
+            </div>
+            <div class="text-left leading-tight">
+              <div id="badge-name" class="text-xs font-bold text-slate-800 truncate max-w-[140px]">Nama Siswa</div>
+              <div id="badge-class" class="text-[11px] font-semibold text-blue-600">X INT 1</div>
+            </div>
+          </div>
+
+          <button onclick="editStudentProfileModal()" title="Edit Profil Siswa" class="p-2 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-600 text-xs font-semibold flex items-center gap-1.5 transition-all">
+            <span>⚙️</span>
+            <span class="hidden md:inline">Ganti Data</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Navigation Tabs (Pilihan Menu Bebas) -->
+      <nav class="flex items-center gap-1.5 overflow-x-auto py-2 border-t border-slate-200/80 no-scrollbar text-xs font-semibold text-slate-600">
+        <button onclick="navigateToScreen('dashboard')" id="nav-dashboard" class="nav-pill active px-3.5 py-2 rounded-xl whitespace-nowrap flex items-center gap-1.5">
+          <span>🏠</span> <span>Beranda</span>
+        </button>
+        <button onclick="navigateToScreen('theory')" id="nav-theory" class="nav-pill px-3.5 py-2 rounded-xl whitespace-nowrap flex items-center gap-1.5">
+          <span>📖</span> <span>Materi & Teori</span>
+        </button>
+        <button onclick="navigateToScreen('warmup')" id="nav-warmup" class="nav-pill px-3.5 py-2 rounded-xl whitespace-nowrap flex items-center gap-1.5">
+          <span>🏸</span> <span>Latihan 5 Soal (Anthony Ginting)</span>
+          <span id="warmup-done-badge" class="hidden text-[10px] bg-emerald-500 text-white px-1.5 py-0.2 rounded-full">✓ Selesai</span>
+        </button>
+        <button onclick="navigateToScreen('exam')" id="nav-exam" class="nav-pill px-3.5 py-2 rounded-xl whitespace-nowrap flex items-center gap-1.5">
+          <span>🏆</span> <span>Ujian Utama (20 Soal)</span>
+          <span id="exam-done-badge" class="hidden text-[10px] bg-emerald-500 text-white px-1.5 py-0.2 rounded-full">✓ Selesai</span>
+        </button>
+        <button onclick="navigateToScreen('result')" id="nav-result" class="nav-pill px-3.5 py-2 rounded-xl whitespace-nowrap flex items-center gap-1.5">
+          <span>📊</span> <span>Hasil & Pembahasan</span>
+        </button>
+        <button onclick="navigateToScreen('certificate')" id="nav-certificate" class="nav-pill px-3.5 py-2 rounded-xl whitespace-nowrap flex items-center gap-1.5">
+          <span>🎓</span> <span>Sertifikat Digital</span>
+        </button>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- ========================================== -->
+  <!-- MAIN CONTENT CONTAINER                     -->
+  <!-- ========================================== -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- ---------------------------------------- -->
+    <!-- SCREEN 1: DASHBOARD / BERANDA (PILIHAN)   -->
+    <!-- ---------------------------------------- -->
+    <section id="screen-dashboard" class="space-y-8">
+      
+      <!-- Welcome Hero Banner -->
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white p-8 sm:p-10 shadow-xl border border-blue-800/40">
+        <div class="relative z-10 max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/20 text-blue-200 border border-blue-400/30 text-xs font-bold uppercase tracking-wider mb-4">
+            🌟 English Learning Portal • Kelas X INT 1 - 4
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-3">
+            Descriptive Text Practice: <span class="text-blue-300">Great Athletes</span>
+          </h2>
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+            Selamat datang di portal latihan literasi membaca & tata bahasa bahasa Inggris SMA Plus PGRI Cibinong. Pilih menu di bawah untuk mulai belajar atau langsung mengerjakan latihan soal.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4 text-xs font-semibold">
+            <div class="flex items-center gap-2 bg-white/10 px-3.5 py-2 rounded-xl backdrop-blur-xs">
+              <span class="text-emerald-400">●</span> <span>Materi Adjectives & Adverbs</span>
+            </div>
+            <div class="flex items-center gap-2 bg-white/10 px-3.5 py-2 rounded-xl backdrop-blur-xs">
+              <span class="text-amber-400">●</span> <span>5 Soal Pemanasan Anthony Ginting</span>
+            </div>
+            <div class="flex items-center gap-2 bg-white/10 px-3.5 py-2 rounded-xl backdrop-blur-xs">
+              <span class="text-purple-400">●</span> <span>20 Soal Thom Haye & Usain Bolt</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hidden lg:block absolute -right-10 -bottom-10 opacity-15 text-[220px] select-none font-bold">
+          ⚽
+        </div>
+      </div>
+
+      <!-- Student Identity Check Box (If not yet filled) -->
+      <div id="quick-profile-card" class="glass-panel rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div class="space-y-1">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">Identitas Siswa</span>
+            <h3 class="text-xl font-bold text-slate-800">Lengkapi Nama & Kelas Anda</h3>
+            <p class="text-xs text-slate-500">Nama dan kelas ini akan otomatis tercantum pada sertifikat kelulusan digital resmi.</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full md:w-auto">
+            <input type="text" id="dash-student-name" placeholder="Nama Lengkap Siswa" 
+                   class="px-4 py-2.5 rounded-xl border border-slate-300 text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none min-w-[200px]" />
+            
+            <select id="dash-student-class" class="px-4 py-2.5 rounded-xl border border-slate-300 text-sm font-medium bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <option value="X INT 1">Kelas X INT 1</option>
+              <option value="X INT 2">Kelas X INT 2</option>
+              <option value="X INT 3">Kelas X INT 3</option>
+              <option value="X INT 4">Kelas X INT 4</option>
+            </select>
+
+            <button onclick="saveProfileFromDashboard()" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all">
+              Simpan Identitas ✓
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 MAIN ACTION CARDS (PILIHAN MODE SENDIRI) -->
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-extrabold text-xl text-slate-900">Pilih Modul Pembelajaran & Latihan</h3>
+          <span class="text-xs text-slate-500">Pilih modul yang ingin Anda akses</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Card 1: Materi & Teori -->
+          <div onclick="navigateToScreen('theory')" class="action-card glass-panel rounded-3xl p-6 border border-slate-200 flex flex-col justify-between group">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center text-2xl font-bold mb-4 group-hover:scale-110 transition-transform">
+                📖
+              </div>
+              <span class="text-[11px] font-extrabold text-blue-600 uppercase tracking-wider bg-blue-50 px-2 py-0.5 rounded">Modul Teori</span>
+              <h4 class="text-lg font-bold text-slate-900 mt-2 mb-2">Materi Descriptive Text</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Pelajari Generic Structure (*Identification & Description*), fungsi sosial, dan perbedaan mendalam **Adjective vs Adverb** pada deskripsi atlet.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-blue-600 group-hover:text-blue-800">
+              <span>Buka Materi Teori</span>
+              <span>➔</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Latihan 5 Soal Anthony Ginting -->
+          <div onclick="navigateToScreen('warmup')" class="action-card glass-panel rounded-3xl p-6 border border-slate-200 flex flex-col justify-between group">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl font-bold mb-4 group-hover:scale-110 transition-transform">
+                🏸
+              </div>
+              <span class="text-[11px] font-extrabold text-emerald-600 uppercase tracking-wider bg-emerald-50 px-2 py-0.5 rounded">Latihan Mandiri</span>
+              <h4 class="text-lg font-bold text-slate-900 mt-2 mb-2">5 Soal Anthony Ginting</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Latihan pemanasan 5 butir soal pemahaman bacaan tentang atlet bulu tangkis Anthony Sinisuka Ginting dengan pengecekan jawaban & pembahasan instan.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-emerald-600 group-hover:text-emerald-800">
+              <span>Mulai Latihan 5 Soal</span>
+              <span>➔</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Ujian Utama 20 Soal -->
+          <div onclick="navigateToScreen('exam')" class="action-card glass-panel rounded-3xl p-6 border border-slate-200 flex flex-col justify-between group relative overflow-hidden">
+            <div class="absolute -top-3 -right-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[10px] font-extrabold px-3 py-1 rounded-bl-xl shadow-xs">
+              Ujian Utama
+            </div>
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-2xl font-bold mb-4 group-hover:scale-110 transition-transform">
+                🏆
+              </div>
+              <span class="text-[11px] font-extrabold text-purple-600 uppercase tracking-wider bg-purple-50 px-2 py-0.5 rounded">20 Butir Soal TKA</span>
+              <h4 class="text-lg font-bold text-slate-900 mt-2 mb-2">Thom Haye & Usain Bolt</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Evaluasi komprehensif 20 soal reading literacy (Single Choice & MCMA Pilih 2), fitur split screen teks bacaan, audio speech, dan timer 45 menit.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-purple-600 group-hover:text-purple-800">
+              <span>Mulai Ujian 20 Soal</span>
+              <span>➔</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Sertifikat & Rekap Nilai -->
+          <div onclick="navigateToScreen('result')" class="action-card glass-panel rounded-3xl p-6 border border-slate-200 flex flex-col justify-between group">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl font-bold mb-4 group-hover:scale-110 transition-transform">
+                🎓
+              </div>
+              <span class="text-[11px] font-extrabold text-amber-600 uppercase tracking-wider bg-amber-50 px-2 py-0.5 rounded">Hasil & Sertifikat</span>
+              <h4 class="text-lg font-bold text-slate-900 mt-2 mb-2">Sertifikat Resmi Digital</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Lihat perolehan nilai, analisis kelemahan & kelebihan per indikator soal, serta unduh sertifikat resmi berlogo SMA Plus PGRI Cibinong.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-amber-600 group-hover:text-amber-800">
+              <span>Lihat Hasil & Sertifikat</span>
+              <span>➔</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ---------------------------------------- -->
+    <!-- SCREEN 2: THEORY & LEARNING ZONE         -->
+    <!-- ---------------------------------------- -->
+    <section id="screen-theory" class="hidden space-y-6">
+      
+      <!-- Top Title Bar -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">Modul Teori & Struktur Teks</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">Materi Descriptive Text & Language Focus</h2>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button onclick="navigateToScreen('warmup')" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm transition-all flex items-center gap-1.5">
+            <span>🏸 Lanjut ke Latihan 5 Soal</span>
+            <span>➔</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Theory Content Container (Injected by app.js) -->
+      <div id="theory-container"></div>
+
+      <!-- Vocabulary Bank -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="p-3 bg-purple-100 text-purple-700 rounded-2xl text-2xl font-bold">📚</span>
+          <div>
+            <h3 class="text-xl font-bold text-slate-800">3. Interactive Vocabulary Bank (Kamus Kosakata Kunci)</h3>
+            <p class="text-slate-500 text-xs">Kosakata penting dan kelas kata yang sering muncul pada deskripsi atlet</p>
+          </div>
+        </div>
+        <div id="glossary-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+      </div>
+
+      <!-- Bottom Next Actions -->
+      <div class="p-6 bg-gradient-to-r from-blue-900 to-indigo-900 text-white rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
+        <div>
+          <h4 class="font-bold text-lg">Siap menguji pemahaman teori Anda?</h4>
+          <p class="text-blue-200 text-xs">Pilih latihan 5 soal pemanasan Anthony Ginting atau langsung ke 20 soal ujian utama.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <button onclick="navigateToScreen('warmup')" class="px-5 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-bold text-xs transition-all shadow-md">
+            🏸 5 Soal Anthony Ginting ➔
+          </button>
+          <button onclick="navigateToScreen('exam')" class="px-5 py-3 bg-white text-blue-900 hover:bg-blue-50 rounded-xl font-bold text-xs transition-all shadow-md">
+            🏆 20 Soal Ujian Utama ➔
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ---------------------------------------- -->
+    <!-- SCREEN 3: WARM-UP 5 QUESTIONS (GINTING)  -->
+    <!-- ---------------------------------------- -->
+    <section id="screen-warmup" class="hidden space-y-6">
+      
+      <!-- Top Header -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">Mode Latihan Mandiri (5 Soal)</span>
+            <span class="text-xs font-medium text-slate-500">Pemanasan & Pembahasan Instan</span>
+          </div>
+          <h2 class="text-2xl font-extrabold text-slate-900 mt-2">Descriptive Text: Anthony Sinisuka Ginting</h2>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="resetWarmUpQuiz()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-all">
+            🔄 Ulang Latihan
+          </button>
+          <button onclick="navigateToScreen('exam')" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1.5">
+            <span>Ke Ujian 20 Soal</span>
+            <span>➔</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Feedback Banner -->
+      <div id="warmup-feedback-banner" class="hidden"></div>
+
+      <!-- Reading Text Container -->
+      <div id="warmup-text-container"></div>
+
+      <!-- Questions List Container -->
+      <div id="warmup-questions-container" class="space-y-6"></div>
+
+      <!-- Action Bottom Bar -->
+      <div class="p-6 bg-white rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <button onclick="navigateToScreen('theory')" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold text-xs transition-all">
+          ← Kembali ke Materi
+        </button>
+
+        <div class="flex items-center gap-3">
+          <button id="warmup-submit-btn" onclick="submitWarmUpQuiz()" 
+                  class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-xs shadow-md transition-all flex items-center gap-2">
+            <span>✓ Periksa Jawaban Pemanasan</span>
+          </button>
+          <button id="warmup-next-btn" onclick="navigateToScreen('exam')" 
+                  class="hidden px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs shadow-md transition-all flex items-center gap-2">
+            <span>Lanjut ke 20 Soal Ujian Utama</span>
+            <span>➔</span>
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ---------------------------------------- -->
+    <!-- SCREEN 4: MAIN EXAM (20 QUESTIONS)       -->
+    <!-- ---------------------------------------- -->
+    <section id="screen-exam" class="hidden space-y-6">
+      
+      <!-- Top Control Bar -->
+      <div class="bg-white rounded-3xl p-4 sm:p-5 border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="p-3 bg-purple-100 text-purple-700 rounded-2xl text-xl font-bold">🏆</div>
+          <div>
+            <h2 class="font-extrabold text-slate-900 text-base">Ujian Kompetensi 20 Soal (Thom Haye & Usain Bolt)</h2>
+            <p class="text-xs text-slate-500">TKA Reading Literacy & Language Analysis • Bobot 5 Poin/Soal</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <!-- Timer Display -->
+          <div class="flex items-center gap-2 bg-rose-50 border border-rose-200 px-4 py-2 rounded-2xl">
+            <span class="text-rose-600 font-bold text-xs uppercase">Sisa Waktu:</span>
+            <span id="exam-timer-display" class="font-mono font-bold text-base text-rose-700">45:00</span>
+          </div>
+
+          <!-- Finish Exam CTA -->
+          <button onclick="confirmSubmitExam()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-2xl shadow-sm transition-all flex items-center gap-1.5">
+            <span>✓ Selesai & Kumpulkan</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Split Layout: Reading Passage (Left) & Question (Right) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- LEFT: Sticky Reading Passage -->
+        <div class="lg:col-span-6">
+          <div class="reading-panel-box bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+            <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
+              <div>
+                <span class="text-[10px] font-extrabold uppercase tracking-widest text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">Teks Bacaan</span>
+                <h3 id="reading-passage-title" class="font-bold text-lg text-slate-900 mt-1">TEXT 1 – THOM HAYE</h3>
+              </div>
+              <button onclick="speakText('reading-passage-content')" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all">
+                <span>🔊</span> Listen
+              </button>
+            </div>
+            
+            <div id="reading-passage-content" class="text-slate-700 text-sm leading-relaxed text-justify space-y-4">
+              <!-- Injected by renderExamQuestion() -->
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Question & Navigator -->
+        <div class="lg:col-span-6 flex flex-col gap-6">
+          
+          <!-- Question Box -->
+          <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+            <!-- Header Meta -->
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-100">
+              <div class="flex items-center gap-2">
+                <span id="exam-q-number" class="text-sm font-extrabold text-blue-700">Soal No. 1 of 20</span>
+                <span id="exam-q-skill" class="text-xs bg-slate-100 text-slate-600 font-semibold px-2 py-0.5 rounded">Skill: Main Idea</span>
+              </div>
+              <span id="exam-q-type-badge" class="text-xs font-bold px-2.5 py-1 rounded-full bg-blue-100 text-blue-700">
+                Pilihan Ganda
+              </span>
+            </div>
+
+            <!-- Question Text -->
+            <h4 id="exam-question-text" class="text-base sm:text-lg font-bold text-slate-900 mb-6 leading-snug">
+              What is the main idea of the text?
+            </h4>
+
+            <!-- Options Container -->
+            <div id="exam-options-container" class="space-y-3 mb-6">
+              <!-- Injected by renderExamQuestion() -->
+            </div>
+
+            <!-- Bottom Navigation Bar -->
+            <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+              <button id="flag-question-btn" onclick="toggleFlagCurrentQuestion()" 
+                      class="px-4 py-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 text-xs font-bold hover:bg-slate-100 transition-all flex items-center gap-1.5">
+                🏳️ Tandai Ragu-ragu
+              </button>
+
+              <div class="flex items-center gap-2">
+                <button id="prev-q-btn" onclick="prevQuestion()" 
+                        class="px-4 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition-all disabled:opacity-40">
+                  ← Sebelumnya
+                </button>
+                <button id="next-q-btn" onclick="nextQuestion()" 
+                        class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition-all">
+                  Berikutnya ➔
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Question Grid Navigator Card -->
+          <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+            <div class="flex items-center justify-between mb-3">
+              <h5 class="font-extrabold text-xs uppercase tracking-wider text-slate-700">Navigasi Nomor Soal</h5>
+              <span id="exam-progress-text" class="text-xs font-bold text-blue-600">0 / 20 Terjawab</span>
+            </div>
+
+            <div class="w-full bg-slate-100 rounded-full h-2 mb-4 overflow-hidden">
+              <div id="exam-progress-bar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+
+            <!-- Grid 1-20 -->
+            <div id="question-nav-grid" class="grid grid-cols-5 sm:grid-cols-10 gap-2 mb-4">
+              <!-- Injected by renderQuestionGrid() -->
+            </div>
+
+            <!-- Legend -->
+            <div class="flex items-center justify-center gap-4 text-[11px] text-slate-500 pt-3 border-t border-slate-100">
+              <div class="flex items-center gap-1.5">
+                <div class="w-3 h-3 rounded bg-emerald-500"></div>
+                <span>Terjawab</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <div class="w-3 h-3 rounded bg-amber-500"></div>
+                <span>Ragu-ragu</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <div class="w-3 h-3 rounded bg-white border border-slate-300"></div>
+                <span>Belum</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ---------------------------------------- -->
+    <!-- SCREEN 5: SCORE RESULT & REVIEW          -->
+    <!-- ---------------------------------------- -->
+    <section id="screen-result" class="hidden space-y-8 max-w-5xl mx-auto">
+      
+      <!-- Top Result Hero Card -->
+      <div class="glass-panel rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-xl text-center">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold uppercase tracking-wider mb-4 border border-emerald-200">
+          🎉 Evaluasi Selesai Dikerjakan
+        </div>
+        <h2 class="text-3xl font-extrabold text-slate-900 mb-2">Laporan Hasil & Analisis Kompetensi</h2>
+        <p class="text-slate-500 text-sm mb-6">Chapter 1: Descriptive Text (Great Athletes) • SMA PLUS PGRI CIBINONG</p>
+
+        <!-- Big Score Box -->
+        <div class="inline-block p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-blue-900 via-indigo-900 to-slate-900 text-white shadow-2xl mb-6">
+          <div class="text-xs uppercase font-bold tracking-widest text-blue-200 mb-1">NILAI AKHIR EVALUASI</div>
+          <div class="text-6xl sm:text-7xl font-extrabold tracking-tight" id="res-final-score">100</div>
+          <div class="text-xs text-blue-200 font-medium mt-1">Skala 0 - 100 • Bobot 5 Poin / Soal</div>
+        </div>
+
+        <div>
+          <div id="res-grade-badge" class="inline-block px-5 py-2 rounded-full text-sm font-bold border bg-emerald-100 text-emerald-800 border-emerald-300">
+            Grade A — Sangat Baik (Mastery / Excellent)
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-6 text-sm text-slate-700">
+          <div><strong>Nama Siswa:</strong> <span id="res-student-name">Nama Siswa</span></div>
+          <div><strong>Kelas:</strong> <span id="res-student-class">X INT 1</span></div>
+        </div>
+
+        <!-- Action CTAs -->
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <button onclick="navigateToScreen('certificate')" 
+                  class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-xs sm:text-sm shadow-lg shadow-amber-500/30 transition-all flex items-center gap-2">
+            <span>🎓 Buka & Unduh Sertifikat</span>
+          </button>
+          
+          <button onclick="shareViaWhatsApp()" 
+                  class="px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm shadow-lg shadow-emerald-500/30 transition-all flex items-center gap-2">
+            <span>💬 Kirim Nilai ke WhatsApp Guru</span>
+          </button>
+
+          <button onclick="retakeMainExam()" 
+                  class="px-5 py-3.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm transition-all">
+            🔄 Ulangi Ujian
+          </button>
+        </div>
+      </div>
+
+      <!-- Skills Breakdown Card -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+        <h3 class="font-extrabold text-lg text-slate-900 mb-2 flex items-center gap-2">
+          <span>📊</span> Analisis Penguasaan Keterampilan (Skills Breakdown)
+        </h3>
+        <p class="text-xs text-slate-500 mb-6">Peta kompetensi pemahaman bacaan dan analisis tata bahasa Anda</p>
+        
+        <div id="skills-breakdown-container" class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+          <!-- Injected by renderScoreResults() -->
+        </div>
+      </div>
+
+      <!-- Question by Question Review Accordion / List -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+          <div>
+            <h3 class="font-extrabold text-lg text-slate-900 flex items-center gap-2">
+              <span>💡</span> Pembahasan Kunci Jawaban Lengkap (20 Butir Soal)
+            </h3>
+            <p class="text-xs text-slate-500">Pelajari penjelasan pedagogis untuk setiap nomor untuk memahami letak konsep dasarnya.</p>
+          </div>
+
+          <!-- Filter Review Buttons -->
+          <div class="flex items-center gap-1.5 text-xs font-bold bg-slate-100 p-1 rounded-xl">
+            <button onclick="filterReviewList('all')" id="filter-all" class="px-3 py-1.5 rounded-lg bg-white text-slate-800 shadow-xs">Semua (20)</button>
+            <button onclick="filterReviewList('wrong')" id="filter-wrong" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900">Salah Saja</button>
+            <button onclick="filterReviewList('correct')" id="filter-correct" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900">Benar Saja</button>
+          </div>
+        </div>
+
+        <div id="full-review-container">
+          <!-- Injected by renderScoreResults() -->
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ---------------------------------------- -->
+    <!-- SCREEN 6: OFFICIAL CERTIFICATE           -->
+    <!-- ---------------------------------------- -->
+    <section id="screen-certificate" class="hidden space-y-6 max-w-5xl mx-auto">
+      
+      <div class="flex items-center justify-between gap-4 pb-4 border-b border-slate-200 no-print">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">Official Certificate</span>
+          <h2 class="text-2xl font-extrabold text-slate-900 mt-2">Sertifikat Kelulusan Resmi Digital</h2>
+        </div>
+        
+        <button onclick="navigateToScreen('result')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-all">
+          ← Kembali ke Rekap Nilai
+        </button>
+      </div>
+
+      <!-- Action Toolbar -->
+      <div class="bg-white p-4 rounded-3xl border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-4 no-print">
+        <p class="text-xs text-slate-600">
+          ✨ Sertifikat diterbitkan resmi oleh Sistem Evaluasi Bahasa Inggris <strong>SMA PLUS PGRI CIBINONG</strong>.
+        </p>
+
+        <div class="flex items-center gap-3">
+          <button onclick="downloadCertificateImage()" 
+                  class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs shadow-md transition-all flex items-center gap-2">
+            <span>📥 Unduh Gambar (PNG HD)</span>
+          </button>
+          
+          <button onclick="printCertificate()" 
+                  class="px-5 py-2.5 bg-slate-800 hover:bg-slate-900 text-white rounded-xl font-bold text-xs shadow-md transition-all flex items-center gap-2">
+            <span>🖨️ Cetak / Simpan PDF</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Canvas Rendering -->
+      <div id="printable-certificate" class="bg-slate-200 p-2 sm:p-4 rounded-3xl overflow-hidden border border-slate-300">
+        <canvas id="certificate-canvas" class="w-full h-auto rounded-2xl shadow-2xl block"></canvas>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- MODAL: EDIT STUDENT PROFILE                -->
+  <!-- ========================================== -->
+  <div id="profile-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-slate-200">
+      <h3 class="font-extrabold text-lg text-slate-900 mb-2">Edit Data Diri Siswa</h3>
+      <p class="text-xs text-slate-500 mb-6">Data ini digunakan untuk pencantuman nama pada sertifikat dan rekap nilai.</p>
+
+      <div class="space-y-4 mb-6">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nama Lengkap Siswa</label>
+          <input type="text" id="modal-student-name" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Kelas</label>
+          <select id="modal-student-class" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm font-medium bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <option value="X INT 1">Kelas X INT 1</option>
+            <option value="X INT 2">Kelas X INT 2</option>
+            <option value="X INT 3">Kelas X INT 3</option>
+            <option value="X INT 4">Kelas X INT 4</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nomor Absen</label>
+          <input type="number" id="modal-student-num" placeholder="Nomor Absen" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-3">
+        <button onclick="closeStudentProfileModal()" class="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl">Batal</button>
+        <button onclick="saveStudentProfileModal()" class="px-5 py-2.5 text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-sm">Simpan Perubahan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- FOOTER                                     -->
+  <!-- ========================================== -->
+  <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500 mt-auto no-print">
+    <div class="max-w-7xl mx-auto px-4">
+      <p class="font-bold text-slate-800">SMA PLUS PGRI CIBINONG — KABUPATEN BOGOR</p>
+      <p class="mt-1">English Learning Portal • Chapter 1: Great Athletes Descriptive Text • Kelas X INT 1 - 4 • Tahun Ajaran 2026/2027</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
