@@ -92,7 +92,7 @@
           <span id="exam-done-badge" class="hidden text-[10px] bg-emerald-500 text-white px-1.5 py-0.2 rounded-full">✓ Completed</span>
         </button>
         <button onclick="navigateToScreen('result')" id="nav-result" class="nav-pill px-3.5 py-2 rounded-xl whitespace-nowrap flex items-center gap-1.5">
-          <span>📊</span> <span>Results & Review</span>
+          <span>📊</span> <span>Performance Results</span>
           <span id="result-lock-badge" class="text-[10px] bg-slate-200 text-slate-600 px-1.5 py-0.2 rounded-full">🔒 Locked</span>
         </button>
         <button onclick="navigateToScreen('certificate')" id="nav-certificate" class="nav-pill px-3.5 py-2 rounded-xl whitespace-nowrap flex items-center gap-1.5">
@@ -252,7 +252,7 @@
               <span class="text-[11px] font-extrabold text-amber-600 uppercase tracking-wider bg-amber-50 px-2 py-0.5 rounded">Results & Certificate</span>
               <h4 class="text-lg font-bold text-slate-900 mt-2 mb-2">Official Digital Certificate</h4>
               <p class="text-xs text-slate-600 leading-relaxed">
-                View your final score, detailed skill breakdown analysis, step-by-step review, and download your official certificate.
+                View your final score, detailed skill breakdown analysis, and download your official Certificate of Achievement.
               </p>
             </div>
             <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-amber-600 group-hover:text-amber-800">
@@ -573,29 +573,6 @@
         <p class="text-xs text-slate-500 mb-6">Competency analysis across reading literacy indicators and grammatical analysis</p>
         
         <div id="skills-breakdown-container" class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
-          <!-- Injected by renderScoreResults() -->
-        </div>
-      </div>
-
-      <!-- Question by Question Review List -->
-      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
-          <div>
-            <h3 class="font-extrabold text-lg text-slate-900 flex items-center gap-2">
-              <span>💡</span> Complete Question Review & Explanations (20 Questions)
-            </h3>
-            <p class="text-xs text-slate-500">Review the pedagogical rationale for each question to understand the underlying grammatical and contextual concepts.</p>
-          </div>
-
-          <!-- Filter Review Buttons -->
-          <div class="flex items-center gap-1.5 text-xs font-bold bg-slate-100 p-1 rounded-xl">
-            <button onclick="filterReviewList('all')" id="filter-all" class="px-3 py-1.5 rounded-lg bg-white text-slate-800 shadow-xs">All (20)</button>
-            <button onclick="filterReviewList('wrong')" id="filter-wrong" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900">Incorrect Only</button>
-            <button onclick="filterReviewList('correct')" id="filter-correct" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900">Correct Only</button>
-          </div>
-        </div>
-
-        <div id="full-review-container">
           <!-- Injected by renderScoreResults() -->
         </div>
       </div>
